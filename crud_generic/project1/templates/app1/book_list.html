@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>SHOW BOOKS</title>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NAME</th>
+        <th scope="col">AUTHOR</th>
+        <th scope="col">PAGES</th>
+        <th scope="col">DELETE</th>
+        <th scope="col">UPDATE</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        {% for i in object_list %}
+        <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.name}}</td>
+        <td>{{i.author}}</td>
+        <td>{{i.pages}}</td>
+        <td><a href="{% url 'deletebook_url' i.id %}"><button class="btn btn-danger">DELETE</button></a></td>
+        <td><a href="{% url 'updatebook_url' i.id %}"><button class="btn btn-warning">UPDATE</button></a></td>
+        </tr>
+      {% endfor %}
+      
+
+      <div class='pagination justify-content-center'>
+        {% if book_list.has_previous %}
+          <a href='{% url "list_users" users.previous_page_number %}'>Previous </a>
+        {% endif %}
+    
+        <span class='mx-4'>
+          Page {{ book_list.number }} of {{ book_list.paginator.num_pages }}
+        </span>
+    
+        {% if book_list.has_next %}
+          <a href='{% url "list_users" users.next_page_number %}' > Next</a>
+        {% endif %}
+      </div>
+
+
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
